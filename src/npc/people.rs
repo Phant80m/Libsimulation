@@ -1,4 +1,4 @@
-use crate::{generator::Name, npc::Mood, npc::Person};
+use crate::{generator::Name, npc::Mood, npc::Person, npc::State};
 use rand::{thread_rng, Rng};
 impl Person {
     pub fn new(
@@ -7,6 +7,7 @@ impl Person {
         mood: Mood,
         partner: Option<String>,
         kids: Vec<Person>,
+        dialog: impl Into<&'static str>,
     ) -> Self {
         Self {
             name: name.into(),
@@ -14,6 +15,8 @@ impl Person {
             mood,
             partner,
             kids,
+            dialog: Some(dialog.into()),
+            state: State::Alive,
         }
     }
     pub fn spawn() -> Self {
@@ -55,6 +58,8 @@ impl Person {
             mood,
             partner,
             kids,
+            dialog: None,
+            state: State::Alive,
         }
     }
     pub fn spawn_child(last_name: String) -> Self {
@@ -75,6 +80,8 @@ impl Person {
             mood,
             partner: None,
             kids: Vec::new(),
+            dialog: None,
+            state: State::Alive,
         }
     }
     pub fn to_json(&self) -> String {

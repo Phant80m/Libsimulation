@@ -7,6 +7,8 @@ pub struct Person {
     pub mood: Mood,
     pub partner: Option<String>,
     pub kids: Vec<Person>,
+    pub dialog: Option<&'static str>,
+    pub state: State,
 }
 #[derive(Default, Debug, Deserialize, Serialize)]
 pub enum Mood {
@@ -15,4 +17,14 @@ pub enum Mood {
     Neutral,
     Sad,
     Angry,
+}
+
+#[derive(Default, Debug, Deserialize, Serialize)]
+pub enum State {
+    Dead,
+    #[default]
+    Alive,
+    Unharmed,
+    BadlyWounded,
+    SlightlyWounded,
 }
